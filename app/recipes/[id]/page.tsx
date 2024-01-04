@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Callout, TextField } from "@radix-ui/themes";
+import { Button } from "@mui/material";
 import "easymde/dist/easymde.min.css";
 import { useForm, Controller } from "react-hook-form";
 import axios from "axios";
@@ -10,6 +10,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { editRecipeSchema } from "@/app/validationSchemas";
 import { z } from "zod";
 import { Grid, Typography } from "@mui/material";
+import Spinner from "@/app/components/Spinner";
+import Link from "next/link";
 
 type RecipeForm = z.infer<typeof editRecipeSchema>;
 
@@ -61,6 +63,17 @@ const InfoRecipePage = ({ params }: { params: any }) => {
       });
   }, []);
 
+  const onDelete = async () => {
+    try {
+      setDeleting(true);
+      await axios.delete("/api/recipes", { params: { id: params.id } });
+      router.push("/recipes");
+    } catch (error) {
+      setDeleting(false);
+      setError("An unexpected error occured.");
+    }
+  };
+
   /**
    * displayImage function
    * @description Returns imgUrl string, if it does not exist then returns defaultImage
@@ -86,16 +99,27 @@ const InfoRecipePage = ({ params }: { params: any }) => {
         <div className="bg-white p-8 rounded-lg shadow-lg flex items-center">
           <div className="flex-1">
             <Grid container spacing={3}>
-              <Grid item xs={6}>
-                <Typography variant="h4" gutterBottom>
+              <Grid item xs={6} alignItems="flex" className="m-auto">
+                <Typography
+                  variant="h2"
+                  style={{ fontWeight: "bold" }}
+                  gutterBottom
+                >
                   {Recipes?.title}
                 </Typography>
               </Grid>
-              <Grid item xs={6} sm={6}>
+              <Grid
+                item
+                xs={6}
+                sm={6}
+                display="flex"
+                alignItems="flex-end"
+                className="justify-end"
+              >
                 <img
                   src={displayImage(Recipes?.imgUrl)}
                   alt="Description Image"
-                  className="relative top-0 right-0 w-44 h-44 rounded-full ml-4 flex justify-end"
+                  className="w-44 h-44 rounded-full"
                 />
               </Grid>
             </Grid>
@@ -111,6 +135,33 @@ const InfoRecipePage = ({ params }: { params: any }) => {
                 {line}
               </p>
             ))}
+            <div className="m-auto p-4 flex justify-center space-x-6">
+              <Button
+                color="primary"
+                disabled={false}
+                size="medium"
+                variant="outlined"
+              >
+                <Link
+                  href={{
+                    pathname: "/recipes/[id]/edit",
+                    query: { id: Recipes?.id },
+                  }}
+                  as={`/recipes/${Recipes?.id}/edit`}
+                >
+                  Edit Recipe
+                </Link>
+              </Button>
+              <Button
+                color="error"
+                disabled={false}
+                size="medium"
+                variant="outlined"
+                onClick={onDelete}
+              >
+                Delete Issue {isDeleting && <Spinner />}
+              </Button>
+            </div>
           </div>
         </div>
       </div>
