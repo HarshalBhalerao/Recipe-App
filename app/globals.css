@@ -1,0 +1,112 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+  }
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+}
+
+/* Form component */
+
+/* reset */
+input,
+textarea,
+button {
+  all: unset;
+  box-sizing: border-box;
+}
+
+.FormRoot {
+  width: 50%;
+}
+
+.FormField {
+  display: grid;
+  margin-bottom: 10px;
+}
+
+.FormLabel {
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 35px;
+  color: black;
+}
+
+.FormMessage {
+  font-size: 13px;
+  color: black;
+  opacity: 0.8;
+}
+
+.Input,
+.Textarea {
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+
+  font-size: 15px;
+  color: black;
+  background-color: var(--black-a5);
+  box-shadow: 0 0 0 1px var(--black-a9);
+}
+.Input:hover,
+.Textarea:hover {
+  box-shadow: 0 0 0 1px black;
+}
+.Input:focus,
+.Textarea:focus {
+  box-shadow: 0 0 0 2px black;
+}
+.Input::selection,
+.Textarea::selection {
+  background-color: var(--black-a9);
+  color: white;
+}
+
+.Input {
+  padding: 0 10px;
+  height: 35px;
+  line-height: 1;
+}
+
+.Textarea {
+  resize: both;
+  padding: 10px;
+}
+
+.Button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  padding: 0 15px;
+  font-size: 15px;
+  line-height: 1;
+  font-weight: 500;
+  height: 35px;
+  width: 100%;
+
+  background-color: black;
+  color: white;
+  box-shadow: 0 2px 10px var(--black-a7);
+}
+.Button:hover {
+  background-color: grey;
+}
+.Button:focus {
+  box-shadow: 0 0 0 2px black;
+}
