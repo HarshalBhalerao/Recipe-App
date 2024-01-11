@@ -72,6 +72,7 @@ const NavBar = () => {
           variant="outlined"
           endIcon={<AddBoxIcon />}
           href="/recipes/new"
+          title="Add Recipe"
         >
           Recipe
         </Button>

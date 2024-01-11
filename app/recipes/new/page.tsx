@@ -16,13 +16,13 @@ type RecipeForm = z.infer<typeof createRecipeSchema>;
 
 const NewRecipePage = () => {
   const router = useRouter();
-  const { register, control, handleSubmit } = useForm<RecipeForm>({
+  const { register, handleSubmit } = useForm<RecipeForm>({
     resolver: zodResolver(createRecipeSchema),
   });
   const [error, setError] = useState("");
   const [isSubmitting, setSubmitting] = useState(false);
 
-  const onSubmit = handleSubmit(async (data) => {
+  const onSubmit = async (data: RecipeForm) => {
     try {
       setSubmitting(true);
       await axios.post("/api/recipes", data);
@@ -31,7 +31,7 @@ const NewRecipePage = () => {
       setSubmitting(false);
       setError("An unexpected error occured.");
     }
-  });
+  };
 
   return (
     <div className="max-w-screen-2xl m-auto p-10">
@@ -40,7 +40,7 @@ const NewRecipePage = () => {
           <Callout.Text>{error}</Callout.Text>
         </Callout.Root>
       )}
-      <Form.Root className="FormRoot m-auto" onSubmit={onSubmit}>
+      <Form.Root className="FormRoot m-auto" onSubmit={handleSubmit(onSubmit)}>
         <Form.Field className="FormField" name="title">
           <div
             style={{

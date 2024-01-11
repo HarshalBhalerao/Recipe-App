@@ -10,7 +10,12 @@ export async function POST(request: NextRequest) {
       return NextResponse.json(validation.error.format(), { status: 400 });
 
     const newRecipe = await prisma.recipe.create({
-      data: { title: body.title, imgUrl: body.imgUrl, ingredients: body.ingredients, description: body.description },
+      data: {
+        title: body.title,
+        imgUrl: body.imgUrl,
+        ingredients: body.ingredients,
+        description: body.description,
+      },
     });
 
     return NextResponse.json(newRecipe, { status: 201 });
@@ -50,7 +55,12 @@ export async function PATCH(request: NextRequest) {
       where: {
         id: id,
       },
-      data: { title: body.title, imgUrl: body.imgUrl , ingredients: body.ingredients, description: body.description },
+      data: {
+        title: body.title,
+        imgUrl: body.imgUrl,
+        ingredients: body.ingredients,
+        description: body.description,
+      },
     });
 
     return NextResponse.json(newRecipe, { status: 201 });

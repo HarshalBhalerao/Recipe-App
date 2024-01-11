@@ -2,7 +2,7 @@
 
 import { Button } from "@mui/material";
 import "easymde/dist/easymde.min.css";
-import { useForm, Controller } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
@@ -15,7 +15,7 @@ import Link from "next/link";
 
 type RecipeForm = z.infer<typeof editRecipeSchema>;
 
-interface Recipe {
+type Recipe = {
   id: number;
   title: string;
   ingredients: string;
@@ -34,16 +34,13 @@ const InfoRecipePage = ({ params }: { params: any }) => {
     resolver: zodResolver(editRecipeSchema),
   });
   const [error, setError] = useState("");
-  const [isSubmitting, setSubmitting] = useState(false);
   const [isDeleting, setDeleting] = useState(false);
+  const [RecipeExist, setRecipeExist] = useState(false);
+  const [Recipes, setRecipes] = useState<Recipe>();
 
   // Default image used when image does not exist or query results in 404 status code
   const defaultImageUrl =
     "https://images.pexels.com/photos/4105287/pexels-photo-4105287.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2";
-
-  const [RecipeExist, setRecipeExist] = useState(false);
-  const [Recipes, setRecipes] = useState<Recipe>();
-  const [descriptionArray, setDescriptionArray] = useState<string[]>([]);
 
   useEffect(() => {
     axios
