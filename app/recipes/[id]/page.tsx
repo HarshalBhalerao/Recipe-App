@@ -23,7 +23,7 @@ type Recipe = {
   imgUrl: string;
 }
 
-const InfoRecipePage = ({ params }: { params: any }) => {
+const InfoRecipePage = ({ params }: { params: { id: string } }) => {
   const router = useRouter();
   const {
     register,

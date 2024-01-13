@@ -54,7 +54,7 @@ const CardItem = ({ item }: { item: Recipe }) => {
               gutterBottom
               variant="h5"
               component="div"
-              className="flex justify-center items-center m-auto"
+              className="flex items-center justify-center m-auto p-4 uppercase"
             >
               {item.title}
             </Typography>

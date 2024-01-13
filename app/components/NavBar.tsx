@@ -60,7 +60,7 @@ const NavBar = () => {
             <AccountCircleTwoToneIcon />
           </IconButton>
         </Tooltip>
-        <Tooltip title="Rent/Buy Cart" placement="right">
+        <Tooltip title="Buy Premium" placement="right">
           <IconButton>
             <SubscriptionsTwoToneIcon />
           </IconButton>
